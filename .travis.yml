@@ -1,0 +1,30 @@
+dist: xenial
+language: python
+
+python:
+  - "3.6"
+  - "3.7"
+
+cache: pip
+
+install:
+  - pip install pipenv pytest
+  - pipenv install
+  - pipenv install coverage tox tox-travis tox-venv
+
+stages:
+  - coverage
+
+script:
+  - coverage erase
+  - tox
+
+jobs:
+  include:
+    - stage: coverage
+      script:
+        - pytest --cov=test
+        - coverage xml
+      after_sucess:
+        - pip install codecov
+        - codecov
