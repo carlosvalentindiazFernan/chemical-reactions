@@ -10,7 +10,7 @@ cache: pip
 install:
   - pip install pipenv pytest
   - pipenv install
-  - pipenv install coverage tox tox-travis tox-venv
+  - pipenv install coverage tox tox-travis tox-venv pytest-cov
 
 stages:
   - coverage
@@ -23,7 +23,7 @@ jobs:
   include:
     - stage: coverage
       script:
-        - pytest ./test --cov=apps
+        - pytest  --cov=apps ./test
         - coverage xml
       after_sucess:
         - pip install codecov
