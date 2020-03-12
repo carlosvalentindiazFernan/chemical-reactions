@@ -23,7 +23,7 @@ jobs:
   include:
     - stage: coverage
       script:
-        - pytest --cov=test
+        - pytest ./test
         - coverage xml
       after_sucess:
         - pip install codecov
